@@ -1,0 +1,10 @@
+- name: Create IP file
+  hosts: all
+  tasks:
+    - name: Get host IP address
+      command: hostname -I
+      register: host_ip
+    - name: Create file with IP
+      copy:
+        content: "{{ host_ip.stdout }}"
+        dest: /home/ubuntu/ip_file.txt

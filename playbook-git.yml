@@ -1,0 +1,7 @@
+- name: Clone git repo
+  hosts: all
+  tasks:
+    - name: Clone the git repo
+      git:
+        repo: https://github.com/1391819/QA-training.git
+        dest: /home/ubuntu/QA-training/
