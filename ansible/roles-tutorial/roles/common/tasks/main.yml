@@ -1,0 +1,27 @@
+---
+# tasks file for common
+# Group for developers
+# Developer user (Bill)
+# ZSH Shell for developers (it's their preferred shell)
+# Jenkins user for automated tasks
+- name: "zsh installed"
+  apt:
+    name: zsh
+    state: latest
+    update_cache: yes
+- name: "developer group"
+  group:
+    name: developer
+    state: present
+- name: bill user
+  user:
+    name: bill
+    comment: Developer Bill
+    shell: /bin/zsh
+    groups: developer
+    append: yes
+- name: "jenkins user"
+  user: 
+    name: jenkins
+    comment: Jenkins Automation User
+    shell: /bin/bash
