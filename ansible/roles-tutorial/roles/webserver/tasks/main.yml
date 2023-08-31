@@ -1,0 +1,27 @@
+---
+# tasks file for webserver
+# NGINX for serving web application files
+#   - service must be running
+#   - custom configuration must be installed
+#   - service must be reloaded when the configurations are updated
+# Git to download the static website project
+- name: "Download and install git and nginx using apt"
+  apt:
+    pkg:
+      - nginx
+      - git
+    state: latest
+    update_cache: true
+- name: "Make sure that the nginx service is started"
+  service:
+    name: nginx
+    state: started
+- name: "Update website from the git repo"
+  git:
+    repo: "{{ git_repository }}"
+    dest: "{{ install_directory }}"
+- name: "Install the nginx.conf file on to the remote machine"
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: "Reload nginx"
